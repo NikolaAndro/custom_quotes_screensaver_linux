@@ -33,16 +33,31 @@ cleanup() {
 }
 trap cleanup SIGTERM SIGINT
 
-# 4) Launch osd_cat in foreground (so wait waits on it)
-echo "$quote" | osd_cat \
-  --pos=middle \
-  --align=center \
-  --delay=86400 \
-  --font="-misc-fixed-medium-r-normal--30-*-*-*-*-*-iso8859-1" \
-  --color=white \
-  --shadow=1 \
-  --outline=1 &
-OSD_PID=$!
+# 4) Cycle forever
+idx=0
+num=${#quotes[@]}
+while true; do
+  quote="${quotes[$idx]}"
+
+  # show it for 300s (5 minutes)
+  echo "$quote" | osd_cat \
+    --pos=middle \
+    --align=center \
+    --delay=300 \
+    --font="-misc-fixed-medium-r-normal--30-*-*-*-*-*-iso8859-1" \
+    --shadow=1 \
+    --outline=1 &
+  OSD_PID=$!
+
+  # wait 300s (5 minutes) or until TERM
+  sleep 300
+
+  # clear it
+  kill "$OSD_PID" 2>/dev/null
+
+  # advance index
+  idx=$(( (idx+1) % num ))
+done
 
 # 5) Wait for osd_cat to exit (or for TERM to arrive)
 wait "$OSD_PID"

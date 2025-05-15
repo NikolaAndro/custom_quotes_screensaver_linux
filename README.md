@@ -1,6 +1,6 @@
 # Daily Quote Screensaver
 
-A simple XScreenSaver‐based screensaver that displays a new quote each day, centered on your screen using OSD.
+A simple XScreenSaver‐based screensaver that displays a new quote every 5 mintues, centered on your screen using OSD.
 
 ---
 
@@ -49,7 +49,10 @@ programs:                                                                     \
   …                                                                           \n\
  "Daily Quote – OSD" /home/the-squid/bin/quote_saver_osd.sh                 \n\
 ```
-4. Restart XScreenSaver:
+
+4. Remove cycling by changing the `cycle` parameter to `cycle: 0:00:00` 
+
+5. Restart XScreenSaver:
 
 ```
 xscreensaver-command -restart
@@ -78,3 +81,23 @@ pkill osd_cat
 Adjust display duration:
 
 Modify `--delay=86400` to the number of seconds you want the quote to remain.
+
+## 7. Customizing
+
+If you want to change the font, look into the line in the scrip:
+
+```
+-misc-fixed-medium-r-normal--30-*-*-*-*-*-iso8859-1
+│      │     │     │      │  │ │ │ │ │   └── character encoding
+│      │     │     │      │  │ │ │ │ └──── pixel aspect (wildcard)
+│      │     │     │      │  │ │ │ └────── point size (wildcard)
+│      │     │     │      │  │ │ └──────── orientation (wildcard)
+│      │     │     │      │  │ └────────── weight (wildcard)
+│      │     │     │      │  └──────────── pitch (wildcard)
+│      │     │     │      └─────────────── height in pixels (30)
+│      │     │     └────────────────────── average width (“normal”)
+│      │     └──────────────────────────── slant (“r” = roman/upright)
+│      └────────────────────────────────── weight (“medium”)
+└──────────────────────────────────────── foundry/family (“misc-fixed”)
+
+```
