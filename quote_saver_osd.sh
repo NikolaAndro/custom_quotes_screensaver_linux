@@ -50,7 +50,9 @@ while true; do
   OSD_PID=$!
 
   # wait 300s (5 minutes) or until TERM
-  sleep 300
+  sleep 300 & 
+  SLEEP_PID=$!
+  wait $SLEEP_PID
 
   # clear it
   kill "$OSD_PID" 2>/dev/null
