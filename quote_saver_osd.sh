@@ -37,10 +37,20 @@ trap cleanup SIGTERM SIGINT
 idx=0
 num=${#quotes[@]}
 while true; do
-  quote="${quotes[$idx]}"
+  full="${quotes[$idx]}"
+
+  # if there’s an author (marked by “ - ”), split out the two parts
+  if [[ "$full" == *" - "* ]]; then
+    text="${full% - *}"
+    author="${full##* - }"
+    # prepare a two-line display with a blank line in between
+    display="$text"$'\n\n'"— $author"
+  else
+    display="$full"
+  fi
 
   # show it for 300s (5 minutes)
-  echo "$quote" | osd_cat \
+  printf "%s\n" "$display" | osd_cat \
     --pos=middle \
     --align=center \
     --delay=300 \
