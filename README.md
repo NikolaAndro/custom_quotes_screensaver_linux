@@ -58,6 +58,52 @@ programs:                                                                     \
 xscreensaver-command -restart
 ```
 
+6. Pick one of these:
+
+### GNOME/KDE “Startup Applications”
+
+Open your desktop’s “Startup Applications” (or “Autostart”) settings.
+
+Add a new entry:
+
+```
+Name: XScreenSaver
+
+Command: xscreensaver -nosplash
+```
+
+Save. Now each time you log in, the daemon will launch automatically.
+
+### ~/.xsession or ~/.xprofile
+
+If you’re using a plain X session (no desktop‐environment autostart GUI), put this line near the top of your ~/.xsession (or ~/.xprofile):
+
+`xscreensaver -nosplash &`
+
+That will fire up the daemon when you log in graphically.
+
+### User systemd service
+
+If you prefer systemd, you can drop a unit in `~/.config/systemd/user/xscreensaver.service`:
+
+```
+[Unit]
+Description=XScreenSaver daemon
+
+[Service]
+ExecStart=/usr/bin/xscreensaver -nosplash
+
+[Install]
+WantedBy=default.target
+```
+
+Then enable it:
+
+
+`systemctl --user enable xscreensaver.service`
+
+Any of those will ensure the screensaver daemon is running in the background as soon as you log in – without polluting your shell startup.
+
 ## 5. How It Works
 
 - GUI Preview (xscreensaver-demo) is detected and skipped.
