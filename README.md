@@ -50,7 +50,7 @@ programs:                                                                     \
  "Daily Quote – OSD" /home/the-squid/bin/quote_saver_osd.sh                 \n\
 ```
 
-4. Remove cycling by changing the `cycle` parameter to `cycle: 0:00:00` 
+4. Set cycling to something large. You can cahnge the `cycle` parameter to `cycle: 12:00:00` 
 
 5. Restart XScreenSaver:
 
