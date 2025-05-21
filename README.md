@@ -60,7 +60,7 @@ xscreensaver-command -restart
 
 6. Pick one of these:
 
-### GNOME/KDE “Startup Applications”
+###### GNOME/KDE “Startup Applications”
 
 Open your desktop’s “Startup Applications” (or “Autostart”) settings.
 
@@ -74,7 +74,7 @@ Command: xscreensaver -nosplash
 
 Save. Now each time you log in, the daemon will launch automatically.
 
-### ~/.xsession or ~/.xprofile
+###### ~/.xsession or ~/.xprofile
 
 If you’re using a plain X session (no desktop‐environment autostart GUI), put this line near the top of your ~/.xsession (or ~/.xprofile):
 
@@ -82,7 +82,7 @@ If you’re using a plain X session (no desktop‐environment autostart GUI), pu
 
 That will fire up the daemon when you log in graphically.
 
-### User systemd service
+###### User systemd service
 
 If you prefer systemd, you can drop a unit in `~/.config/systemd/user/xscreensaver.service`:
 
@@ -103,6 +103,24 @@ Then enable it:
 `systemctl --user enable xscreensaver.service`
 
 Any of those will ensure the screensaver daemon is running in the background as soon as you log in – without polluting your shell startup.
+
+
+7. Auto-Lock on Suspend / Resume
+
+Open the Startup Applications (sometimes called “Session and Startup” or “Autostart”) utility in your desktop environment.
+
+- Click Add (or “New”).
+- Fill in the fields:
+    - Name: XSS-Lock (or “Lock on Suspend”)
+    - Command:
+      - xss-lock -- xscreensaver-command --lock &
+    - Comment: 
+      - Automatically lock on suspend/idle
+
+ - Save or OK
+ - Close the Startup Applications window.
+
+Now, every time you log in, xss-lock will launch in the background, watching for suspend or DPMS events and invoking xscreensaver-command --lock when needed.
 
 ## 5. How It Works
 
