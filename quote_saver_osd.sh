@@ -14,10 +14,10 @@ if [[ "$GRANDPARENT" == "xscreensaver-demo" ]]; then
 fi
 
 # 1) Load quotes
-# load quotes
-mapfile -t quotes < /home/the-squid/quotes.txt
-num=${#quotes[@]}
-[[ $num -eq 0 ]] && exit 1
+quotes=()
+while IFS= read -r line; do
+  [[ -n "$line" ]] && quotes+=("$line")
+done < /home/the-squid/quotes.txt
 
 # 2) Read & increment index
 if [[ -f "$STATEFILE" ]]; then
