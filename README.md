@@ -82,6 +82,31 @@ If you’re using a plain X session (no desktop‐environment autostart GUI), pu
 
 That will fire up the daemon when you log in graphically.
 
+
+If using GNOME:
+
+- Add the following line to `~/.config/autostart/set-keyboard.desktop` to be able to change language input when locked out:
+
+```
+[Desktop Entry]
+Type=Application
+Exec=setxkbmap -layout us,rs -option grp:win_space_toggle
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name=Set Keyboard Layout
+Comment=Enable Win+Space layout switching
+```
+
+- Replace us,rs with any layouts you want (e.g., us,de, us,fr, etc.)
+
+- NOTE: If ~/.config/autostart/ doesn't exist, you can create it:
+
+```
+mkdir -p ~/.config/autostart
+```
+
+- Reboot or log out/in so the changes apply 
+
 ###### User systemd service
 
 If you prefer systemd, you can drop a unit in `~/.config/systemd/user/xscreensaver.service`:
