@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Make sure we’re talking to the right X server:
+export DISPLAY=${DISPLAY:-:0}
+
+# Force layout to U.S. English
+setxkbmap us
+
 exec 2> ~/quote_saver_debug.log
 set -x
 
